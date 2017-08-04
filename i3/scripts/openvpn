@@ -1,0 +1,7 @@
+import os
+
+tmp = os.popen("ip addr").read()
+if "tun0" not in tmp:
+	print("down")
+else:
+	print("up")

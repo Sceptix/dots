@@ -1,0 +1,8 @@
+#!/bin/sh
+
+number="$(bash /usr/bin/checkupdates | wc -l)"
+
+if [ $number != "0" ]
+then
+	echo $number
+fi

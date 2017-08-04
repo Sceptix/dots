@@ -1,0 +1,150 @@
+set $mod Mod1
+
+font pango:System San Francisco Display 11
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec bash ~/.config/i3/scripts/spawnslopterminal.sh
+
+# start chromium
+
+bindsym $mod+c exec bash ~/.config/i3/scripts/spawnslopchromium.sh
+
+# lockscreen
+
+bindsym $mod+l exec bash /home/timon/lock.sh
+
+# screenshot
+
+bindsym Pause exec bash /home/timon/.screenshot_stuff/startscript
+
+# kill focused window
+bindsym $mod+q kill
+
+# start rofi
+bindsym $mod+g exec rofi -show run
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+space floating toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+set $workspace1 "Chrome "
+set $workspace2 "Code "
+set $workspace3 "Discord"
+set $workspace4 "Steam "
+set $workspace5 "5 "
+set $workspace6 "6 "
+set $workspace7 "7 "
+set $workspace8 "8 "
+set $workspace9 "9 "
+set $workspace10 "VPN "
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# volume shit
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer sset 'Master' 1%+ #increase
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer sset 'Master' 1%- #increase
+
+bindsym $mod+Shift+c reload
+
+new_window 1pixel
+gaps inner 7
+gaps outer 7
+
+exec_always xrandr --output DP-3 --off --output DVI-I-0 --off --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-5 --off --output DP-4 --off --output DVI-I-1 --off --output DP-2 --off --output DP-1 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-0 --off
+
+exec_always feh --bg-scale /home/timon/Bilder/bg.png
+
+exec_always xrdb -load /home/timon/.xresources
+
+exec_always compton
+
+exec_always setxkbmap de
+
+exec_always xsetroot -cursor_name left_ptr &
+
+# bash /usr/bin/panel > /dev/null &
+
+#everything floating
+
+for_window [class="[.]*"] floating enable
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+  colors {
+	  background #00000065
+	  separator #757575
+		#                  border             background         text
+		focused_workspace  $transparent       $transparent       $text-color
+		inactive_workspace $transparent       $transparent       $text-color
+		urgent_workspace   $transparent	      $transparent       $text-color
+	}
+    height 30
+    i3bar_command i3bar -t
+    status_command i3blocks -c ~/.config/i3blocks/i3blocks.conf
+    strip_workspace_numbers yes
+    position top
+}
